@@ -10,7 +10,6 @@ export default initialValue => {
     },
     deleteTodo: todoIndex => {
       const newTodos = todos.filter((_, index) => index !== todoIndex);
-
       setTodos(newTodos);
     }
   };

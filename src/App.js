@@ -2,12 +2,11 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import TodoForm from "./components/ToDoForm";
 import TodoList from "./components/ToDoList";
-import useTodoState from "./components/useToDoState";
+import useToDoState from "./components/useToDoState";
 import "./App.css";
 
 const App = () => {
-  const { todos, addTodo, deleteTodo } = useTodoState([]);
-
+  const { todos, addTodo, deleteTodo } = useToDoState([]);
   return (
     <div className="appContainer">
       <Typography component="h1" variant="h2">

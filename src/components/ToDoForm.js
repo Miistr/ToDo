@@ -9,7 +9,6 @@ const TodoForm = ({ saveTodo }) => {
     <form
       onSubmit={event => {
         event.preventDefault();
-
         saveTodo(value);
         reset();
       }}
