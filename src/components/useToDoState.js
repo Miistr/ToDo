@@ -6,11 +6,23 @@ export default initialValue => {
   return {
     todos,
     addTodo: todoText => {
-      setTodos([...todos, todoText]);
+      setTodos([...todos, { todoText, taskDone: false }]);
     },
     deleteTodo: todoIndex => {
       const newTodos = todos.filter((_, index) => index !== todoIndex);
       setTodos(newTodos);
+    },
+    enterTodo: current => {
+      const newTodos = [...todos];
+      newTodos[current] = {
+        ...todos[current],
+        taskDone: !todos[current].taskDone
+      };
+      setTodos(newTodos);
+    },
+    selectTodo: (index, current) => {
+      if (document.activeElement.id === "mainInput") return false;
+      return index === current;
     }
   };
 };

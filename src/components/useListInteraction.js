@@ -1,37 +1,47 @@
 import { useState, useEffect, useCallback } from "react";
 
-const useListInteraction = (todos, deleteTodo) => {
+const useListInteraction = (todos, deleteTodo, enterTodo) => {
   const [current, setCurrent] = useState(0);
 
   const handleUserKeyPress = useCallback(
     e => {
       switch (e.key) {
         case "ArrowUp":
+          if (current === null) {
+            setCurrent(0);
+            return;
+          }
           e.preventDefault();
-          setCurrent(prevcurrent => {
-            if (prevcurrent === 0) {
-              return prevcurrent;
+          setCurrent(prevCurrent => {
+            if (prevCurrent === 0) {
+              return prevCurrent;
             }
-            return prevcurrent - 1;
+            return prevCurrent - 1;
           });
           break;
         case "ArrowDown":
           e.preventDefault();
-          setCurrent(prevcurrent => {
-            if (prevcurrent === todos.length - 1) {
-              return prevcurrent;
+          setCurrent(prevCurrent => {
+            if (prevCurrent === todos.length - 1) {
+              return prevCurrent;
             }
-            return prevcurrent + 1;
+            return prevCurrent + 1;
           });
           break;
         case "Backspace":
           deleteTodo(current);
           break;
+        case "Enter":
+          if (todos.length === 0) return;
+          if (current === null) return;
+          setCurrent(current);
+          enterTodo(current);
+          break;
         default:
           break;
       }
     },
-    [current, deleteTodo, todos.length]
+    [current, enterTodo, deleteTodo, todos.length]
   );
 
   useEffect(() => {
