@@ -19,7 +19,7 @@ const App = () => {
   return (
     <div className="appContainer">
       <Typography component="h1" variant="h2">
-        Todos
+        ToDo List
       </Typography>
 
       <TodoForm
