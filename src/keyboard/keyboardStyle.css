@@ -1,0 +1,38 @@
+.keyboardContainer {
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.buttonsContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.keyboardButtons {
+  flex: 1;
+  background: rgb(255, 247, 247);
+  border: none;
+  padding: 10px;
+}
+.keyboardButtons:focus {
+  outline: 0;
+}
+
+.pressedKeyboardButtons {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  background: rgb(255, 247, 247);
+  animation-name: example;
+  animation-duration: 0.5s;
+}
+
+@keyframes example {
+  from {
+    background-color: rgb(255, 134, 134);
+  }
+  to {
+    background-color: rgb(255, 247, 247);
+  }
+}
