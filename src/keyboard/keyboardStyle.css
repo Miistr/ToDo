@@ -24,11 +24,11 @@
   border: none;
   padding: 10px;
   background: rgb(255, 247, 247);
-  animation-name: example;
+  animation-name: highlightAnimation;
   animation-duration: 0.5s;
 }
 
-@keyframes example {
+@keyframes highlightAnimation {
   from {
     background-color: rgb(255, 134, 134);
   }
