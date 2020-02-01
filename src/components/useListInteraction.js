@@ -20,6 +20,10 @@ const useListInteraction = (todos, deleteTodo, enterTodo) => {
           });
           break;
         case "ArrowDown":
+          if (current === null) {
+            setCurrent(0);
+            return;
+          }
           e.preventDefault();
           setCurrent(prevCurrent => {
             if (prevCurrent === todos.length - 1) {
