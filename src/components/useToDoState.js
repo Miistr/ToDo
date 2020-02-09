@@ -19,10 +19,6 @@ export default initialValue => {
         taskDone: !todos[current].taskDone
       };
       setTodos(newTodos);
-    },
-    selectTodo: (index, current) => {
-      if (document.activeElement.id === "mainInput") return false;
-      return index === current;
     }
   };
 };
