@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { enUS, ruRU } from "./keyboardLayouts";
 import "./keyboardStyle.css";
 
@@ -26,20 +26,17 @@ const specialKeysCombination = {
   [specialKeys.CONTROL]: [specialKeys.SHIFT, "c", "v", "с", "м", "z", "я"]
 };
 
-const Keyboard = ({
-  setValue,
-  pressedKey,
-  saveTodo,
-  value: currentInputValue
-}) => {
+const Keyboard = ({ setValue, saveTodo, value: currentInputValue }) => {
   const [language, setLanguage] = useState(supportedLanguages.EN);
   const [isShiftPressed, setShiftPressed] = useState(false);
   const [isCapsPressed, setCapsPressed] = useState(false);
   const [isControlPressed, setControlPressed] = useState(false);
   const [copiedValue, setCopiedValue] = useState("");
+  const [pressedKey, setPressedKey] = useState("");
 
   const keyHandler = e => {
     const keyValue = e.target.value;
+    setPressedKey(keyValue);
     if (
       isControlPressed &&
       specialKeysCombination[specialKeys.CONTROL].some(key => key === keyValue)
@@ -99,12 +96,30 @@ const Keyboard = ({
     }
   };
 
-  const highlightButton = (pressedKey, keyboardElement) => {
-    if (pressedKey === keyboardElement) {
-      return "pressedKeyboardButtons";
-    }
-    return "keyboardButtons";
-  };
+  const highlightButton = useCallback(
+    event => {
+      if (event.type === "keyup") {
+        setPressedKey("");
+      } else {
+        setPressedKey(event.key);
+      }
+    },
+    [setPressedKey]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", highlightButton);
+    return () => {
+      document.removeEventListener("keydown", highlightButton);
+    };
+  }, [highlightButton]);
+
+  useEffect(() => {
+    document.addEventListener("keyup", highlightButton);
+    return () => {
+      document.removeEventListener("keyup", highlightButton);
+    };
+  }, [highlightButton]);
 
   return (
     <div className="keyboardContainer">
@@ -121,11 +136,21 @@ const Keyboard = ({
             {separatedElements.map((keyboardElement, index) => {
               return (
                 <button
-                  className={highlightButton(keyboardElement, pressedKey)}
+                  className={
+                    keyboardElement === pressedKey
+                      ? "keyboard-button pressed"
+                      : "keyboard-button"
+                  }
                   key={keyboardElement + index}
                   type="button"
                   value={keyboardElement}
-                  onClick={keyHandler}
+                  onMouseDown={keyHandler}
+                  onMouseUp={() => {
+                    if (isCapsPressed || isControlPressed || isShiftPressed)
+                      return;
+
+                    setPressedKey("");
+                  }}
                 >
                   {keyboardElement}
                 </button>
