@@ -7,15 +7,13 @@ import useListInteraction from "./components/useListInteraction";
 import "./App.css";
 
 const App = () => {
-  const { todos, addTodo, deleteTodo, enterTodo, selectTodo } = useToDoState(
-    []
-  );
+  const { todos, addTodo, deleteTodo, enterTodo } = useToDoState([]);
   const [current, setCurrent] = useListInteraction(
     todos,
     deleteTodo,
-    enterTodo,
-    selectTodo
+    enterTodo
   );
+
   return (
     <div className="appContainer">
       <Typography component="h1" variant="h2">
@@ -39,7 +37,6 @@ const App = () => {
         todos={todos}
         deleteTodo={deleteTodo}
         enterTodo={enterTodo}
-        selectTodo={selectTodo}
       />
     </div>
   );
