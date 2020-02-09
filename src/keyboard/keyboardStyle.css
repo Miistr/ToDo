@@ -9,30 +9,18 @@
   justify-content: space-around;
 }
 
-.keyboardButtons {
+.keyboard-button {
   flex: 1;
   background: rgb(255, 247, 247);
   border: none;
   padding: 10px;
+  transition: background-color 150ms ease-in-out;
 }
-.keyboardButtons:focus {
+
+.keyboard-button:focus {
   outline: 0;
 }
 
-.pressedKeyboardButtons {
-  flex: 1;
-  border: none;
-  padding: 10px;
-  background: rgb(255, 247, 247);
-  animation-name: highlightAnimation;
-  animation-duration: 0.5s;
-}
-
-@keyframes highlightAnimation {
-  from {
-    background-color: rgb(255, 134, 134);
-  }
-  to {
-    background-color: rgb(255, 247, 247);
-  }
+.keyboard-button.pressed {
+  background-color: rgb(255, 134, 134);
 }
