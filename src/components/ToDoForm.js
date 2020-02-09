@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import useInputState from "./useInputState";
 import Keyboard from "../keyboard/Keyboard";
 
 const TodoForm = ({ saveTodo, setCurrent }) => {
   const { value, reset, onChange, setValue } = useInputState();
-  const [pressedKey, setPressedKey] = useState("");
 
   return (
     <form
-      onKeyDown={event => {
-        const pressedKey = event.key;
-        setPressedKey(pressedKey);
-      }}
       onSubmit={event => {
         event.preventDefault();
         saveTodo(value);
@@ -27,14 +22,12 @@ const TodoForm = ({ saveTodo, setCurrent }) => {
         onClick={() => setCurrent(null)}
         onChange={onChange}
         value={value}
+        inputProps={{
+          maxLength: 25
+        }}
       />
 
-      <Keyboard
-        value={value}
-        setValue={setValue}
-        saveTodo={saveTodo}
-        pressedKey={pressedKey}
-      />
+      <Keyboard value={value} setValue={setValue} saveTodo={saveTodo} />
     </form>
   );
 };
